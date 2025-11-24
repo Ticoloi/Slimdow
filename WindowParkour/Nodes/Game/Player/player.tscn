@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://bykqolewjxcrp"]
+
+[ext_resource type="Script" path="res://Nodes/Game/Player/player.gd" id="1_ddwe3"]
+[ext_resource type="Texture2D" uid="uid://bhvhaqu2jqt6" path="res://testAssets/slimeIdle.png" id="2_jgtxm"]
+[ext_resource type="Texture2D" uid="uid://bdbryi80fshdt" path="res://testAssets/jumps.png" id="3_d2yb5"]
+[ext_resource type="Texture2D" uid="uid://dta5h4jdc6mgv" path="res://testAssets/slime.png" id="4_kctt3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_227dk"]
+size = Vector2(40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p3yj6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jgtxm")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_d2yb5")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_kctt3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_jgtxm")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="AudioStream" id="AudioStream_yengf"]
+
+[node name="StaticBody2D" type="RigidBody2D"]
+disable_mode = 2
+script = ExtResource("1_ddwe3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_227dk")
+
+[node name="player" type="ColorRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 1, 1, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(20, 20)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_p3yj6")
+animation = &"Walk"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStream_yengf")

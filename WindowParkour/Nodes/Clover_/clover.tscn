@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://wuk4ed1vtpwp"]
+
+[ext_resource type="Script" path="res://Nodes/Clover?/clover.gd" id="1_auanv"]
+[ext_resource type="Texture2D" uid="uid://c6qhy6wib2b4c" path="res://testAssets/clover-ezgif.com-gif-to-sprite-converter.png" id="1_hrpno"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ws0lm"]
+atlas = ExtResource("1_hrpno")
+region = Rect2(23, 0, 496, 732)
+
+[node name="Clover" type="Window"]
+transparent_bg = true
+size = Vector2i(248, 366)
+unresizable = true
+borderless = true
+always_on_top = true
+transparent = true
+script = ExtResource("1_auanv")
+
+[node name="s" type="TextureRect" parent="."]
+offset_right = 248.0
+offset_bottom = 366.0
+texture = SubResource("AtlasTexture_ws0lm")
+expand_mode = 1

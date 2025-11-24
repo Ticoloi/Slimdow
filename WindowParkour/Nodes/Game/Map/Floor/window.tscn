@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://daxl24pd7lbqp"]
+
+[ext_resource type="Script" path="res://Nodes/Game/Map/Floor/window.gd" id="1_bcf4v"]
+[ext_resource type="Texture2D" uid="uid://dxb86hu0jr8nt" path="res://testAssets/grass.png" id="2_cvb1a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ul3wn"]
+size = Vector2(40, 40)
+
+[node name="Window" type="Window"]
+transparent_bg = true
+canvas_item_default_texture_filter = 3
+initial_position = 3
+current_screen = 0
+unresizable = true
+borderless = true
+always_on_top = true
+transparent = true
+unfocusable = true
+script = ExtResource("1_bcf4v")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_cvb1a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_ul3wn")
+
+[connection signal="files_dropped" from="." to="." method="_on_files_dropped"]
