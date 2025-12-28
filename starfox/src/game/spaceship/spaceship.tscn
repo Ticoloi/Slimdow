@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://bei5qgwe12luk"]
+
+[ext_resource type="ArrayMesh" uid="uid://o20c8fcwcb2j" path="res://assets/models/spaceship.obj" id="1_3u1xd"]
+[ext_resource type="Script" uid="uid://bprllvpmyl51b" path="res://src/game/spaceship/spaceship.gd" id="1_fqea4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fqea4"]
+render_priority = 1
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dsw41"]
+render_priority = 1
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3k4wo"]
+render_priority = 1
+albedo_color = Color(1, 0.141176, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3u1xd"]
+size = Vector3(0.428833, 0.293213, 0.547852)
+
+[node name="Spacechip" type="CharacterBody3D"]
+script = ExtResource("1_fqea4")
+
+[node name="Spaceship" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_3u1xd")
+surface_material_override/0 = SubResource("StandardMaterial3D_fqea4")
+surface_material_override/1 = SubResource("StandardMaterial3D_dsw41")
+surface_material_override/2 = SubResource("StandardMaterial3D_3k4wo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0379518, 0.228689, 0)
+shape = SubResource("BoxShape3D_3u1xd")

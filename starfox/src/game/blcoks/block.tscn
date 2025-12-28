@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bswj0l88fdowl"]
+
+[ext_resource type="Script" uid="uid://pk8dc1u4omdw" path="res://src/game/blcoks/block.gd" id="1_rb6tq"]
+
+[node name="Block" type="Node3D"]
+script = ExtResource("1_rb6tq")

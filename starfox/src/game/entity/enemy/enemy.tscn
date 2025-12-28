@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://brv0agel5cc05"]
+
+[ext_resource type="Script" uid="uid://bhx3wo0cgr07m" path="res://src/game/entity/enemy/enemy.gd" id="1_n2506"]
+[ext_resource type="PackedScene" uid="uid://buu0s7d4ler1y" path="res://assets/models/enemy/Enemy.gltf" id="1_s4us6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vdpxa"]
+size = Vector3(1, 0.496582, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_n2506")
+
+[node name="model" parent="." instance=ExtResource("1_s4us6")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.251709, 0)
+shape = SubResource("BoxShape3D_vdpxa")

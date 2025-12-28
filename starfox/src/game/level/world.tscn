@@ -1,0 +1,110 @@
+[gd_scene load_steps=15 format=3 uid="uid://bw3x87unakh34"]
+
+[ext_resource type="Script" uid="uid://bfswfi515mq2p" path="res://src/game/level/world.gd" id="1_wu282"]
+[ext_resource type="Shader" uid="uid://dba5ykj2b83rg" path="res://assets/shader/water.gdshader" id="2_vxnqw"]
+[ext_resource type="PackedScene" uid="uid://bdvpv60ckefft" path="res://src/game/player/player.tscn" id="3_5apog"]
+[ext_resource type="PackedScene" uid="uid://brv0agel5cc05" path="res://src/game/entity/enemy/enemy.tscn" id="4_5apog"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxnqw"]
+render_priority = 0
+shader = ExtResource("2_vxnqw")
+shader_parameter/color1 = Color(0, 0.94902, 0.941176, 1)
+shader_parameter/color2 = Color(0, 0, 0, 1)
+shader_parameter/color3 = Color(0, 0, 0, 1)
+shader_parameter/x_amount = 32.0
+shader_parameter/y_amount = 32.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5apog"]
+lightmap_size_hint = Vector2i(497, 497)
+material = SubResource("ShaderMaterial_vxnqw")
+size = Vector2(40, 70)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_wu282"]
+
+[sub_resource type="Sky" id="Sky_wu282"]
+sky_material = SubResource("PhysicalSkyMaterial_wu282")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_vxnqw"]
+background_mode = 2
+sky = SubResource("Sky_wu282")
+tonemap_mode = 2
+tonemap_exposure = 0.9
+fog_enabled = true
+fog_light_color = Color(0.281838, 0.58552, 0.910502, 1)
+fog_height_density = 0.6214
+volumetric_fog_density = 0.015
+volumetric_fog_emission_energy = 0.3
+volumetric_fog_gi_inject = 2.0
+volumetric_fog_anisotropy = 0.0
+volumetric_fog_length = 256.0
+volumetric_fog_sky_affect = 0.6
+adjustment_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_vxnqw"]
+
+[sub_resource type="Compositor" id="Compositor_5apog"]
+
+[sub_resource type="Curve3D" id="Curve3D_vxnqw"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 10, 0, 0, -10, 10, 10, 0, 0, 0, -50, 0, 10, 10, 0, 10, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5apog"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jpvwx"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.762613, 0.112069, 0.517537, 1)
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_wu282")
+
+[node name="Enviorment" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviorment"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 9.76611, 16.588)
+light_volumetric_fog_energy = 0.5
+light_angular_distance = 0.5
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enviorment"]
+transform = Transform3D(0.999998, 0.00209439, 1.51611e-15, -0.00209439, 0.999998, 0.000152344, 5.48311e-07, -0.000261799, 0.58191, -4.12622, 0.0127034, 15.3647)
+mesh = SubResource("PlaneMesh_5apog")
+skeleton = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviorment"]
+environment = SubResource("Environment_vxnqw")
+camera_attributes = SubResource("CameraAttributesPractical_vxnqw")
+compositor = SubResource("Compositor_5apog")
+
+[node name="Player" parent="." node_paths=PackedStringArray("world") instance=ExtResource("3_5apog")]
+transform = Transform3D(-0.975405, 0.210185, 0.0661617, 0.210645, 0.977551, -9.35977e-08, -0.0646763, 0.0139366, -0.997807, -8.36689, 7.20057, 8.30231)
+visible = false
+world = NodePath("..")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.73622, -2.79943, 22.2094)
+curve = SubResource("Curve3D_vxnqw")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-0.975405, 0.210185, 0.0661617, 0.210645, 0.977551, -9.35977e-08, -0.0646763, 0.0139366, -0.997807, 0.369329, 10, -13.9071)
+progress = 37.5761
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(30.801, 0, 0, 0, 1, 0, 0, 0, 82.9993, -4.606, 0, 37.7149)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_5apog")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.289414)
+use_collision = true
+size = Vector3(1, 1, 0.421173)
+material = SubResource("StandardMaterial3D_jpvwx")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("4_5apog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.70431, 3.73069)
